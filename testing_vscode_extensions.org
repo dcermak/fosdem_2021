@@ -1,0 +1,136 @@
+# -*- org-confirm-babel-evaluate: nil; -*-
+#+AUTHOR: Dan Čermák
+#+DATE: 6.2.2020
+#+EMAIL: dcermak@suse.com
+#+TITLE: Testing Visual Studio Code extensions
+
+#+REVEAL_ROOT: ./node_modules/reveal.js/
+#+REVEAL_THEME: simple
+#+REVEAL_PLUGINS: (highlight notes history)
+# #+REVEAL_PLUGINS: (notes history)
+#+REVEAL_DEFAULT_FRAG_STYLE: appear
+#+REVEAL_INIT_OPTIONS: transition: 'none', hash: true
+#+OPTIONS: num:nil toc:nil center:nil reveal_title_slide:nil
+#+REVEAL_EXTRA_CSS: ./node_modules/@fortawesome/fontawesome-free/css/all.min.css
+#+REVEAL_HIGHLIGHT_CSS: ./node_modules/reveal.js/plugin/highlight/zenburn.css
+
+#+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2>
+#+REVEAL_TITLE_SLIDE: <p class="subtitle" style="color: Gray;">%s</p>
+#+REVEAL_TITLE_SLIDE: <p class="author">%a <%e></p>
+#+REVEAL_TITLE_SLIDE: FOSDEM 2021, <h3 class="date">%d</h3>
+#+REVEAL_TITLE_SLIDE: <p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#">This work is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+#+REVEAL_TITLE_SLIDE: CC BY-SA 4.0 <i class="fab fa-creative-commons"></i><i class="fab fa-creative-commons-by"></i><i class="fab fa-creative-commons-sa"></i></a></p>
+
+
+* whoami
+
+Dan Čermák
+
+#+REVEAL_HTML: <ul>
+#+REVEAL_HTML: <li>Software Developer @SUSE
+#+REVEAL_HTML: <li>package maintainer in Fedora und openSUSE</li>
+#+REVEAL_HTML: <li>I <i class="far fa-heart"></i> testing</li>
+#+REVEAL_HTML: </ul>
+
+#+REVEAL_HTML: <p>
+#+REVEAL_HTML: <i class="fab fa-github"></i> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a>
+#+REVEAL_HTML: </p>
+#+REVEAL_HTML: <p>
+#+REVEAL_HTML: <i class="fab fa-suse"></i> <a href="https://build.opensuse.org/users/dancermak">dancermak</a>
+#+REVEAL_HTML: <i class="fab fa-fedora"></i> <a href="https://src.fedoraproject.org/user/defolos">defolos</a>
+#+REVEAL_HTML: </p>
+
+#+REVEAL_HTML: <p>
+#+REVEAL_HTML: <i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a>
+#+REVEAL_HTML: <i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a>
+#+REVEAL_HTML: </p>
+
+#+REVEAL_HTML: <p>
+#+REVEAL_HTML: <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/FF62839C3097EBE20E8926B2E632C3380610D1C5"><i class="fas fa-key"></i>E632 C338 0610 D1C5</a>
+#+REVEAL_HTML: </p>
+
+* Visual Studio Code
+
+#+BEGIN_NOTES
+- VSCode is not Visual Studio!​
+- runs on Linux, Windows, MacOS
+- Typescript = Javascript + Types: decent but not too complicated type system,
+  very nice to work with actually​Strict superset of JS
+  \rarr can start out from plain JS​
+- Electron: headless Chrome, running nodejs​
+- popularity: 7.2% in 2016, 24% in 2017, 34% in 2018, 50% in 2019 (stackoverflow developer survey)​
+- good API documentation, nice introductory tutorials, official extension example repository (not just hello world!)​
+#+END_NOTES
+
+#+ATTR_REVEAL: :frag (appear appear appear appear appear) :frag_idx (1 2 3 4 5)
+- Cross platform IDE
+- Built with Typescript and Electron
+- Highly popular
+- Rich extension ecosystem
+- Well documented extension API
+
+
+* Story
+
+#+BEGIN_NOTES
+1. first unit tests only, but brittle, don't catch actual bugs, don't test workflows, require a lot of maintenance
+#+END_NOTES
+
+[[./images/add_repository.png]]
+#+ATTR_REVEAL: :frag (appear)
+1. Started out with unit tests
+2. 
+
+
+* Testing Extensions
+
+Why is it hard?
+
+#+ATTR_REVEAL: :frag (appear)
+- UIs cary a lot of state
+-
+
+
+** Unit testing
+
+#+ATTR_REVEAL: :frag (appear)
+- anything touching the UI needs extensive setup & mocking
+- external services need to be mocked
+
+
+*** Getting started
+
+#+BEGIN_NOTES
+- official docs have minimal viable example
+- uses vscode-test module
+- does *not* work with standard code coverage (e.g. nyc)
+#+END_NOTES
+
+- documentation has an example setup with [[https://mochajs.org/][mocha]]
+- code coverage setup more involved: [[https://github.com/microsoft/vscode-js-debug/blob/master/src/test/testRunner.ts][microsoft/vscode-js-debug:src/test/testRunner.ts]]
+
+
+*** Running tests
+
+- upstream example using
+
+
+*** Extension Settings
+
+#+ATTR_REVEAL: :frag (appear)
+- extension settings are stored in a json file
+- can be
+
+*** Events
+
+
+*** Recommendations
+
+#+ATTR_REVEAL: :frag (appear)
+- don't test UI elements unless you *must*
+- split out as much of your "business logic" from the UI
+
+
+** Integration testing
+
+*** 

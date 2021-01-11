@@ -1,0 +1,12 @@
+{
+  "name": "testing_vscode_extensions",
+  "version": "0.0.1",
+  "description": "Talk at FOSDEM 2021: Testing Visual Studio Code extensions",
+  "main": "index.js",
+  "author": "Dan Čermák <dcermak@suse.com>",
+  "license": "CC-BY-SA-4.0",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": ">=5.15",
+    "reveal.js": ">=4.1.0"
+  }
+}
