@@ -28,26 +28,32 @@ Dan Čermák
 
 #+REVEAL_HTML: <ul>
 #+REVEAL_HTML: <li>Software Developer @SUSE
-#+REVEAL_HTML: <li>package maintainer in Fedora und openSUSE</li>
+# #+REVEAL_HTML: <li>package maintainer in Fedora und openSUSE</li>
 #+REVEAL_HTML: <li>I <i class="far fa-heart"></i> testing</li>
 #+REVEAL_HTML: </ul>
 
 #+REVEAL_HTML: <p>
 #+REVEAL_HTML: <i class="fab fa-github"></i> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a>
 #+REVEAL_HTML: </p>
-#+REVEAL_HTML: <p>
-#+REVEAL_HTML: <i class="fab fa-suse"></i> <a href="https://build.opensuse.org/users/dancermak">dancermak</a>
-#+REVEAL_HTML: <i class="fab fa-fedora"></i> <a href="https://src.fedoraproject.org/user/defolos">defolos</a>
-#+REVEAL_HTML: </p>
+# #+REVEAL_HTML: <p>
+# #+REVEAL_HTML: <i class="fab fa-suse"></i> <a href="https://build.opensuse.org/users/dancermak">dancermak</a>
+# #+REVEAL_HTML: <i class="fab fa-fedora"></i> <a href="https://src.fedoraproject.org/user/defolos">defolos</a>
+# #+REVEAL_HTML: </p>
 
 #+REVEAL_HTML: <p>
-#+REVEAL_HTML: <i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a>
 #+REVEAL_HTML: <i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a>
 #+REVEAL_HTML: </p>
-
 #+REVEAL_HTML: <p>
-#+REVEAL_HTML: <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/FF62839C3097EBE20E8926B2E632C3380610D1C5"><i class="fas fa-key"></i>E632 C338 0610 D1C5</a>
+#+REVEAL_HTML: <i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a>
 #+REVEAL_HTML: </p>
+
+# #+REVEAL_HTML: <p>
+# #+REVEAL_HTML: <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/FF62839C3097EBE20E8926B2E632C3380610D1C5"><i class="fas fa-key"></i>E632 C338 0610 D1C5</a>
+# #+REVEAL_HTML: </p>
+
+
+* TODO Agenda
+
 
 * Visual Studio Code
 
@@ -62,6 +68,8 @@ Dan Čermák
 - good API documentation, nice introductory tutorials, official extension example repository (not just hello world!)​
 #+END_NOTES
 
+#+REVEAL_HTML: <img src="images/vscode_logo.svg" height="64" width="64"/>
+
 #+ATTR_REVEAL: :frag (appear appear appear appear appear) :frag_idx (1 2 3 4 5)
 - Cross platform IDE
 - Built with Typescript and Electron
@@ -70,35 +78,74 @@ Dan Čermák
 - Well documented extension API
 
 
-* Story
+* Open Build Service Connector
 
 #+BEGIN_NOTES
-1. first unit tests only, but brittle, don't catch actual bugs, don't test workflows, require a lot of maintenance
+1. first unit tests only, but brittle, don't catch actual bugs, don't test workflows,
+   require a lot of maintenance: tests were checking the data structures created by VSCode (not only the actually "interesting" stuff)
+   *and* did not catch actual bugs
+2. we actually want to test workflows
 #+END_NOTES
 
+#+REVEAL_HTML: <i class="fab fa-github"></i> <a href="https://github.com/SUSE/open-build-service-connector">SUSE/open-build-service-connector</a>
 [[./images/add_repository.png]]
+
+#+REVEAL: split
+# #+ATTR_REVEAL: :frag (appear) :frag_idx (1)
+\rarr Test the workflows of your extension!
+# #+REVEAL_HTML: <i class="fas fa-bug"></i>
+
+
+** Roadblocks
+#+begin_notes
+- extension connects to the open build service
+  \rarr most functionality depends on external & dynmic service (behavior tends to change from time to time)
+  but cannot connect to that for testing (no elevated permisssions, can go down for maintenance, etc.)
+- passwords stored via node-keytar (\rarr libsecret, pulls in heavy dependencies & systemd)
+#+end_notes
 #+ATTR_REVEAL: :frag (appear)
-1. Started out with unit tests
-2. 
+1. need to connect to [[https://build.opensuse.org/][OBS]]
+2. have to store passwords
+
+** Solutions
+#+begin_notes
+- OBS has a docker compose based devel environment
+  \rarr can be used with relatively little tweaking
+  other upstream services can have something like that as well or a staging/testing area
+- symbols from system libraries can be injected via ~LD_PRELOAD~
+  \Rightarrow create a minimal viable version for testing
+#+end_notes
+#+ATTR_REVEAL: :frag (appear)
+1. use upstream's development environment
+2. use a dirty ~LD_PRELOAD~ trick
 
 
 * Testing Extensions
+
+#+begin_notes
+- UI itself needs a *ton* of state: UI state influences reactions \rarr has to be provided/mocked
+- unit test should check just one thing \rarr not appropriate for workflows
+- you can easily unit test output that is never shown, check the wrong parts,
+  certain parts can not be unit tested (e.g. which buttons are shown when)
+#+end_notes
 
 Why is it hard?
 
 #+ATTR_REVEAL: :frag (appear)
 - UIs cary a lot of state
--
+- unit testing is not appropriate for UIs & workflows
+- what you get is not what you see
 
 
-** Unit testing
+
+* Unit testing
 
 #+ATTR_REVEAL: :frag (appear)
 - anything touching the UI needs extensive setup & mocking
 - external services need to be mocked
 
 
-*** Getting started
+** Getting started
 
 #+BEGIN_NOTES
 - official docs have minimal viable example
@@ -110,27 +157,95 @@ Why is it hard?
 - code coverage setup more involved: [[https://github.com/microsoft/vscode-js-debug/blob/master/src/test/testRunner.ts][microsoft/vscode-js-debug:src/test/testRunner.ts]]
 
 
-*** Running tests
-
-- upstream example using
-
-
-*** Extension Settings
+** Extension Settings
 
 #+ATTR_REVEAL: :frag (appear)
 - extension settings are stored in a json file
 - can be
 
-*** Events
+** Events
 
 
-*** Recommendations
+** Recommendations
 
 #+ATTR_REVEAL: :frag (appear)
 - don't test UI elements unless you *must*
 - split out as much of your "business logic" from the UI
 
 
-** Integration testing
+* Manual testing
 
-*** 
+#+begin_notes
+- manual testing appropriate when expected future changes small
+- write down all the steps (\rarr test plan) with *clearly defined* expected results
+#+end_notes
+
+#+REVEAL_HTML: <i class="fas fa-keyboard"></i> <i class="fas fa-mouse"></i> Do it yourself
+
+#+ATTR_REVEAL: :frag (appear)
+Make a test plan
+
+
+* Integration testing
+
+#+begin_notes
+- run workflows automated
+- test the *full* extension
+- need something to provide input & verify the view in vscode
+#+end_notes
+
+#+REVEAL_HTML: <i class="fas fa-robot"></i> automated execution of your extensions' workflows
+
+** vscode-extension-tester
+
+#+begin_notes
+- vscode is just a webpage (electron…) \rarr use existing tooling for end-to-end testing
+- selenium webdriver: framework for functional testing of webpages
+- vscode extension tester wraps selenium's page object API \rarr more convenient to work with
+#+end_notes
+
+#+REVEAL_HTML: <i class="fab fa-github"></i>
+#+REVEAL_HTML: <a href="https://github.com/redhat-developer/vscode-extension-tester">redhat-developer/vscode-extension-tester</a>
+
+- leverages selenium webdriver
+#+REVEAL_HTML: <img src="images/Selenium_Logo.png" height="64" width="64"/>
+
+#+begin_src typescript
+const editor = new TextEditor();
+const pkgJsonEditor = await new EditorView().openEditor('package.json');
+
+await pkgJsonEditor.setText('{"foo": [1, 2, 3], "bar": "baz"}');
+await pkgJsonEditor.formatDocument();
+#+end_src
+
+
+** What to test?
+
+#+begin_notes
+- try to test your main workflow that *must* work for releases
+- test runs take quite long \rarr use 80/20% rule to catch most
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+- check your main workflow(s)
+- don't test corner cases & minor regressions
+
+
+** How to test?
+
+- build using [[https://mochajs.org/]]
+- spin up staging/development environments in [[https://mochajs.org/#root-hook-plugins][root hooks]]
+- override environment variables
+
+
+** Catches
+
+- integration tests tend to be very slow
+- avoid explicit sleeps
+- CI pipeline can be *very resource* demanding
+
+
+* Questions?
+
+#+ATTR_REVEAL: :frag (appear) :frag_idx 2
+Thank you for your time!
