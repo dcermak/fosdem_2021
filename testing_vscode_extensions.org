@@ -9,7 +9,6 @@
 #+REVEAL_THEME: simple
 #+REVEAL_PLUGINS: (highlight notes history)
 #+OPTIONS: toc:nil
-# #+REVEAL_PLUGINS: (notes history)
 #+REVEAL_DEFAULT_FRAG_STYLE: appear
 #+REVEAL_INIT_OPTIONS: transition: 'none', hash: true
 #+OPTIONS: num:nil toc:nil center:nil reveal_title_slide:nil
@@ -28,26 +27,24 @@
 
 Dan Čermák
 
+#+REVEAL_HTML: <p style="text-align:left">
 #+REVEAL_HTML: <ul>
 #+REVEAL_HTML: <li>Software Developer @SUSE
-# #+REVEAL_HTML: <li>package maintainer in Fedora und openSUSE</li>
 #+REVEAL_HTML: <li>I <i class="far fa-heart"></i> testing</li>
+#+REVEAL_HTML: <li style="list-style-type:none;"> </li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-github"></i> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a></li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a></li>
 #+REVEAL_HTML: </ul>
+# #+REVEAL_HTML: <div style="text-align:left"><br><i class="fab fa-github"></i> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a>
+# #+REVEAL_HTML: <br><i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a>
+# #+REVEAL_HTML: <br><i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a>
+# #+REVEAL_HTML: </div></p>
 
-#+REVEAL_HTML: <p>
-#+REVEAL_HTML: <i class="fab fa-github"></i> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a>
-#+REVEAL_HTML: </p>
 # #+REVEAL_HTML: <p>
 # #+REVEAL_HTML: <i class="fab fa-suse"></i> <a href="https://build.opensuse.org/users/dancermak">dancermak</a>
 # #+REVEAL_HTML: <i class="fab fa-fedora"></i> <a href="https://src.fedoraproject.org/user/defolos">defolos</a>
 # #+REVEAL_HTML: </p>
-
-#+REVEAL_HTML: <p>
-#+REVEAL_HTML: <i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a>
-#+REVEAL_HTML: </p>
-#+REVEAL_HTML: <p>
-#+REVEAL_HTML: <i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a>
-#+REVEAL_HTML: </p>
 
 # #+REVEAL_HTML: <p>
 # #+REVEAL_HTML: <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/FF62839C3097EBE20E8926B2E632C3380610D1C5"><i class="fas fa-key"></i>E632 C338 0610 D1C5</a>
@@ -56,55 +53,39 @@ Dan Čermák
 
 * TODO Agenda
 
-  - [[Visual Studio Code][Visual Studio Code]]
-  - [[Open Build Service Connector][Open Build Service Connector]]
+  - [[OBS Connector][OBS Connector]]
   - [[Testing Extensions][Testing Extensions]]
     - [[Unit testing][Unit testing]]
     - [[Manual testing][Manual testing]]
     - [[Integration testing][Integration testing]]
-  - [[Questions?][Questions?]]
-
+  - [[Questions?][Q&A]]
 
 * Visual Studio Code
 
 #+BEGIN_NOTES
-- VSCode is not Visual Studio!​
-- runs on Linux, Windows, MacOS
-- Typescript = Javascript + Types: decent but not too complicated type system,
-  very nice to work with actually​Strict superset of JS
-  \rarr can start out from plain JS​
-- Electron: headless Chrome, running nodejs​
-- popularity: 7.2% in 2016, 24% in 2017, 34% in 2018, 50% in 2019 (stackoverflow developer survey)​
+- Cross platform IDE
+- Built with Typescript and Electron
+- Highly popular: 7.2% in 2016, 24% in 2017, 34% in 2018, 50% in 2019 (stackoverflow developer survey)​
+- Rich extension ecosystem
+- Well documented extension API
 - good API documentation, nice introductory tutorials, official extension example repository (not just hello world!)​
 #+END_NOTES
 
-# #+REVEAL_HTML: <img src="images/vscode_logo.svg" height="64" width="64"/>
-
-#+ATTR_REVEAL: :frag (appear appear appear appear appear) :frag_idx (1 2 3 4 5)
-- Cross platform IDE
-- Built with Typescript and Electron
-- Highly popular
-- Rich extension ecosystem
-- Well documented extension API
+#+REVEAL_HTML: <img src="images/vscode.png" height="80%" width="80%"/>
 
 
-* Open Build Service Connector
+* OBS Connector
 
 #+BEGIN_NOTES
-1. first unit tests only, but brittle, don't catch actual bugs, don't test workflows,
-   require a lot of maintenance: tests were checking the data structures created by VSCode (not only the actually "interesting" stuff)
-   *and* did not catch actual bugs
-2. we actually want to test workflows
+- open build service connector: bridge between vscode and the open build service
+- provide an integrated workflow to build packages & containers
+- 2nd extension: push build containers to production (k8s/k3s)
 #+END_NOTES
 
 #+REVEAL_HTML: <i class="fab fa-github"></i> <a href="https://github.com/SUSE/open-build-service-connector">SUSE/open-build-service-connector</a>
-#+REVEAL_HTML: <img src="./images/add_repository.png" data-fragment-index="2" class="fragment appear"/>
+# #+REVEAL_HTML: <img src="./images/add_repository.png" data-fragment-index="2" class="fragment appear"/>
+#+REVEAL_HTML: <img src="./images/obs-connector.svg" data-fragment-index="2" class="fragment appear" heigh="500"/>
 # [[./images/add_repository.png]]
-
-#+REVEAL: split
-# #+ATTR_REVEAL: :frag (appear) :frag_idx (1)
-\rarr Test the workflows of your extension!
-# #+REVEAL_HTML: <i class="fas fa-bug"></i>
 
 
 ** Roadblocks
@@ -113,22 +94,35 @@ Dan Čermák
   \rarr most functionality depends on external & dynmic service (behavior tends to change from time to time)
   but cannot connect to that for testing (no elevated permisssions, can go down for maintenance, etc.)
 - passwords stored via node-keytar (\rarr libsecret, pulls in heavy dependencies & systemd)
-#+end_notes
-#+ATTR_REVEAL: :frag (appear)
-1. need to connect to [[https://build.opensuse.org/][OBS]]
-2. have to store passwords
 
-** Solutions
-#+begin_notes
 - OBS has a docker compose based devel environment
   \rarr can be used with relatively little tweaking
   other upstream services can have something like that as well or a staging/testing area
 - symbols from system libraries can be injected via ~LD_PRELOAD~
   \Rightarrow create a minimal viable version for testing
+
+1. first unit tests only, but brittle, don't catch actual bugs, don't test workflows,
+   require a lot of maintenance: tests were checking the data structures created by VSCode (not only the actually "interesting" stuff)
+   *and* did not catch actual bugs
+2. we actually want to test workflows
 #+end_notes
-#+ATTR_REVEAL: :frag (appear)
+#+ATTR_REVEAL: :frag (appear appear appear) :frag_idx (1 2 3)
+1. need to connect to [[https://build.opensuse.org/][OBS]]
+2. have to store passwords
+3. unit tests are brittle
+
+#+REVEAL_HTML: <p data-fragment-index="4" class="fragment appear">
+#+REVEAL_HTML: Solutions:
+#+REVEAL_HTML: </p>
+
+#+ATTR_REVEAL: :frag (appear appear appear) :frag_idx (5 6 7)
 1. use upstream's development environment
 2. use a dirty ~LD_PRELOAD~ trick
+3. test the workflows of the extension
+
+# #+REVEAL: split
+# \rarr Test the workflows of your extension!
+# # #+REVEAL_HTML: <i class="fas fa-bug"></i>
 
 
 * Testing Extensions
@@ -336,10 +330,11 @@ await pkgJsonEditor.formatDocument();
 * Legal
 
 - [[https://commons.wikimedia.org/wiki/File:Visual_Studio_Code_1.35_icon.svg][Visual Studio Codo Logo]] © Microsoft
+- [[https://github.com/openSUSE/artwork/blob/master/logos/official/geeko-color.png][openSUSE Logo]] CC-BY-SA 3.0
 - [[https://commons.wikimedia.org/wiki/File:Selenium_Logo.png][Selenium Logo]] CC-BY-SA 4.0
 - [[https://revealjs.com/][reveal.js]] MIT
 - [[https://fontawesome.com/][Font Awesome]] CC-BY-4.0 and SIL OFL 1.1 and MIT
-
+- [[https://eos-icons.com/][EOS Icons]] MIT
 - everything else is my work under CC-BY-4.0
 
 * Questions?
