@@ -36,19 +36,6 @@ Dan Čermák
 #+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></li>
 #+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a></li>
 #+REVEAL_HTML: </ul>
-# #+REVEAL_HTML: <div style="text-align:left"><br><i class="fab fa-github"></i> <a href="https://github.com/dcermak/">dcermak</a> / <a href="https://github.com/D4N/">D4N</a>
-# #+REVEAL_HTML: <br><i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a>
-# #+REVEAL_HTML: <br><i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a>
-# #+REVEAL_HTML: </div></p>
-
-# #+REVEAL_HTML: <p>
-# #+REVEAL_HTML: <i class="fab fa-suse"></i> <a href="https://build.opensuse.org/users/dancermak">dancermak</a>
-# #+REVEAL_HTML: <i class="fab fa-fedora"></i> <a href="https://src.fedoraproject.org/user/defolos">defolos</a>
-# #+REVEAL_HTML: </p>
-
-# #+REVEAL_HTML: <p>
-# #+REVEAL_HTML: <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/FF62839C3097EBE20E8926B2E632C3380610D1C5"><i class="fas fa-key"></i>E632 C338 0610 D1C5</a>
-# #+REVEAL_HTML: </p>
 
 
 * Agenda
@@ -83,9 +70,7 @@ Dan Čermák
 #+END_NOTES
 
 #+REVEAL_HTML: <i class="fab fa-github"></i> <a href="https://github.com/SUSE/open-build-service-connector">SUSE/open-build-service-connector</a>
-# #+REVEAL_HTML: <img src="./images/add_repository.png" data-fragment-index="2" class="fragment appear"/>
 #+REVEAL_HTML: <img src="./images/obs-connector.svg" data-fragment-index="2" class="fragment appear" heigh="500"/>
-# [[./images/add_repository.png]]
 
 
 ** Roadblocks
@@ -119,10 +104,6 @@ Dan Čermák
 1. use upstream's development environment
 2. use a dirty ~LD_PRELOAD~ trick
 3. test the workflows of the extension
-
-# #+REVEAL: split
-# \rarr Test the workflows of your extension!
-# # #+REVEAL_HTML: <i class="fas fa-bug"></i>
 
 
 * Testing Extensions
