@@ -2,7 +2,7 @@
 #+AUTHOR: Dan Čermák
 #+DATE: 6.2.2020
 #+EMAIL: dcermak@suse.com
-#+TITLE: Testing Visual Studio Code extensions
+#+TITLE: Testing VSCode extensions
 # #+SUBTITLE: foo
 
 #+REVEAL_ROOT: ./node_modules/reveal.js/
