@@ -51,9 +51,9 @@ Dan Čermák
 # #+REVEAL_HTML: </p>
 
 
-* TODO Agenda
+* Agenda
 
-  - [[OBS Connector][OBS Connector]]
+  - [[OBS Connector][Open Build Service Connector]]
   - [[Testing Extensions][Testing Extensions]]
     - [[Unit testing][Unit testing]]
     - [[Manual testing][Manual testing]]
